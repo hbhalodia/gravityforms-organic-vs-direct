@@ -4,6 +4,13 @@
  * @package gravityforms-organic-vs-direct
  */
 
+
+let brandName = '';
+
+if ('undefined' !== typeof gFormCaptureTraffic) {
+	brandName = gFormCaptureTraffic.brandName;
+}
+
 /**
  * Set traffic sources on hidden fileds.
  *
@@ -95,7 +102,7 @@ function getTrafficSourceData() {
 	let returnObject = {};
 
 	if ('' === referrer) {
-		returnObject['utm_source'] = 'web_direct';
+		returnObject['utm_source'] = `${brandName}_web_direct`;
 		returnObject['utm_medium'] = '';
 		returnObject['utm_term'] = '';
 	} else {
@@ -123,7 +130,7 @@ const referrerEngineObject = {
 function getSourceAndMediumForOrganicTraffic(referrer) {
 
 	const returnObject = {
-		'utm_source': 'web_organic',
+		'utm_source': `${brandName}_web_organic`,
 		'utm_medium': referrerEngineObject.hasOwnProperty(referrer) ? referrerEngineObject[referrer]: 'same',
 		'utm_term': '', // Need to research for term keyword search.
 	};

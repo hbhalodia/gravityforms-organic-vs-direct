@@ -50,6 +50,12 @@ if ( ! class_exists( 'GForms_Config' ) ) {
 	new GForms_Config();
 }
 
+if ( ! class_exists( 'Settings' ) ) {
+	require_once GFORMS_ORGANIC_VS_DIRECT_TRAFFIC_FEATURES_PATH . '/inc/classes/class-settings.php';
+
+	new Settings();
+}
+
 if ( ! class_exists( 'Assets' ) ) {
 	require_once GFORMS_ORGANIC_VS_DIRECT_TRAFFIC_FEATURES_PATH . '/inc/classes/class-assets.php';
 

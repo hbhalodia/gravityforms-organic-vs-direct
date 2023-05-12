@@ -53,6 +53,16 @@ class Assets {
 			true
 		);
 
+		$brand_name = get_option( 'gravity_forms_organic_vs_direct_brand_name' );
+
+		wp_localize_script(
+			'gform-capture-traffic',
+			'gFormCaptureTraffic',
+			array(
+				'brandName' => $brand_name,
+			)
+		);
+
 		wp_enqueue_script( 'gform-capture-traffic' );
 	}
 
