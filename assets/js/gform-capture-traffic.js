@@ -32,19 +32,13 @@ function setHiddenFieldTrafficSources() {
 			getTrafficSource = getTrafficSourceData();
 		}
 
-		console.log('no any coookie');
 		// Store value in Cookies.
 		createCookie('GFOrganicDirectTrafficSouce', JSON.stringify(getTrafficSource), 30);
 	} else {
-		console.log('cookie was stet');
 		getTrafficSource = JSON.parse(getTrafficSource);
 	}
 
-	console.log(getTrafficSource);
-
-	// Set the Value in Session/Cookie.
-
-	// Set the Hidden Fields value.
+	// Set the Hidden Fields value based on cookie or first time visit within cookie expiration.
 	if (0 < utmSourceHiddenField.length) {
 		setHiddenFieldsValue(utmSourceHiddenField, getTrafficSource['utm_source']);
 	}
@@ -56,8 +50,6 @@ function setHiddenFieldTrafficSources() {
 	if (0 < utmTermHiddenField) {
 		setHiddenFieldsValue(utmTermHiddenField, getTrafficSource['utm_term']);
 	}
-
-	console.log('set traffic to forms hidden field');
 }
 
 /**
