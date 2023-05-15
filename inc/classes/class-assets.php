@@ -53,7 +53,9 @@ class Assets {
 			true
 		);
 
-		$brand_name = get_option( 'gravity_forms_organic_vs_direct_brand_name' );
+		if ( class_exists( 'GF_Organic_Vs_Direct_Addon' ) ) {
+			$brand_name = GF_Organic_Vs_Direct_Addon::retrive_form_settings( 'gforms_organic_vs_direct_traffic' );
+		}
 
 		wp_localize_script(
 			'gform-capture-traffic',
