@@ -22,14 +22,25 @@ function setHiddenFieldTrafficSources() {
 	const utmMediumHiddenField = document.querySelectorAll('.utm_medium input');
 	const utmTermHiddenField = document.querySelectorAll('.utm_term input');
 
-	console.log(utmSourceHiddenField);
+	let getTrafficSource = getCookie('GFOrganicDirectTrafficSouce');
 
-	// Check the Query Params for UTM Parameter and add it on global const object.
-	let getTrafficSource = getQueryParamsTrafficSourceData();
+	if (null === getTrafficSource || 'undefined' === typeof getTrafficSource) {
+		// Check the Query Params for UTM Parameter and add it on global const object.
+		getTrafficSource = getQueryParamsTrafficSourceData();
 
-	if (0 === Object.keys(getTrafficSource).length) {
-		getTrafficSource = getTrafficSourceData();
+		if (0 === Object.keys(getTrafficSource).length) {
+			getTrafficSource = getTrafficSourceData();
+		}
+
+		console.log('no any coookie');
+		// Store value in Cookies.
+		createCookie('GFOrganicDirectTrafficSouce', JSON.stringify(getTrafficSource), 30);
+	} else {
+		console.log('cookie was stet');
+		getTrafficSource = JSON.parse(getTrafficSource);
 	}
+
+	console.log(getTrafficSource);
 
 	// Set the Value in Session/Cookie.
 
@@ -45,6 +56,8 @@ function setHiddenFieldTrafficSources() {
 	if (0 < utmTermHiddenField) {
 		setHiddenFieldsValue(utmTermHiddenField, getTrafficSource['utm_term']);
 	}
+
+	console.log('set traffic to forms hidden field');
 }
 
 /**
@@ -136,6 +149,49 @@ function getSourceAndMediumForOrganicTraffic(referrer) {
 	};
 
 	return returnObject;
+}
+
+/**
+ * Function to create the cookie and set the traffic source.
+ *
+ * @param {string} name    Cookie Name.
+ * @param {string} value   Cookie Value.
+ * @param {float}  minutes Cookie Expiration time.
+ *
+ * @returns void
+ */
+function createCookie(name, value, minutes) {
+
+	let expires = '';
+	if (minutes) {
+		let date = new Date();
+		date.setTime(date.getTime() + (minutes * 60 * 1000));
+		expires = '; expires=' + date.toGMTString();
+	}
+	document.cookie = name + '=' + value + expires + '; path=/';
+}
+
+/**
+ * Function to fetch the cookie stored.
+ *
+ * @param {string} name Cookie Name to fetch.
+ *
+ * @returns {string|null}
+ */
+function getCookie(name) {
+
+	var nameEQ = name + '=';
+	var ca = document.cookie.split(';');
+	for (let i = 0; i < ca.length; i++) {
+		let c = ca[i];
+		while (' ' === c.charAt(0)) {
+			c = c.substring(1, c.length);
+		}
+		if (0 === c.indexOf(nameEQ)) {
+			return c.substring(nameEQ.length, c.length);
+		}
+	}
+	return null;
 }
 
 // On DomContentLoaded.
