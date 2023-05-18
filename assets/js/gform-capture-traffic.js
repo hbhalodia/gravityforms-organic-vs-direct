@@ -134,9 +134,15 @@ const referrerEngineObject = {
  */
 function getSourceAndMediumForOrganicTraffic(referrer) {
 
+	let websiteRef = false;
+
+	if (referrer.includes(window.location.hostname)) {
+		websiteRef = true;
+	}
+
 	const returnObject = {
-		'utm_source': `${brandName}_web_organic`,
-		'utm_medium': referrerEngineObject.hasOwnProperty(referrer) ? referrerEngineObject[referrer]: 'same',
+		'utm_source': websiteRef ? `${brandName}_website` : `${brandName}_web_organic`,
+		'utm_medium': referrerEngineObject.hasOwnProperty(referrer) ? referrerEngineObject[referrer]: 'website',
 		'utm_term': '', // Need to research for term keyword search.
 	};
 
