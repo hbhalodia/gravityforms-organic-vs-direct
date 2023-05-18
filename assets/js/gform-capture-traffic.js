@@ -18,27 +18,37 @@ if ('undefined' !== typeof gFormCaptureTraffic) {
  */
 function setHiddenFieldTrafficSources() {
 
+	const utmCampaignHiddenField = document.querySelectorAll('.utm_campaign input');
 	const utmSourceHiddenField = document.querySelectorAll('.utm_source input');
 	const utmMediumHiddenField = document.querySelectorAll('.utm_medium input');
 	const utmTermHiddenField = document.querySelectorAll('.utm_term input');
 
-	let getTrafficSource = getCookie('GFOrganicDirectTrafficSouce');
+	// Check the Query Params for UTM Parameter and add it on global const object.
+	let getTrafficSource = getQueryParamsTrafficSourceData();
 
-	if (null === getTrafficSource || 'undefined' === typeof getTrafficSource) {
-		// Check the Query Params for UTM Parameter and add it on global const object.
-		getTrafficSource = getQueryParamsTrafficSourceData();
+	if (0 === Object.keys(getTrafficSource).length) {
 
-		if (0 === Object.keys(getTrafficSource).length) {
+		getTrafficSource = getCookie('GFOrganicDirectTrafficSouce');
+
+		if (null === getTrafficSource || 'undefined' === typeof getTrafficSource) {
+
 			getTrafficSource = getTrafficSourceData();
-		}
 
+			// Store value in Cookies.
+			createCookie('GFOrganicDirectTrafficSouce', JSON.stringify(getTrafficSource), 30);
+		} else {
+			getTrafficSource = JSON.parse(getTrafficSource);
+		}
+	} else {
 		// Store value in Cookies.
 		createCookie('GFOrganicDirectTrafficSouce', JSON.stringify(getTrafficSource), 30);
-	} else {
-		getTrafficSource = JSON.parse(getTrafficSource);
 	}
 
 	// Set the Hidden Fields value based on cookie or first time visit within cookie expiration.
+	if (0 < utmCampaignHiddenField.length) {
+		setHiddenFieldsValue(utmCampaignHiddenField, getTrafficSource['utm_campaign']);
+	}
+
 	if (0 < utmSourceHiddenField.length) {
 		setHiddenFieldsValue(utmSourceHiddenField, getTrafficSource['utm_source']);
 	}
@@ -81,6 +91,9 @@ function getQueryParamsTrafficSourceData() {
 
 	for (const [key, value] of urlParams.entries()) {
 		switch (key) {
+			case 'utm_campaign':
+				returnObject['utm_campaign'] = value;
+				break;
 			case 'utm_source':
 				returnObject['utm_source'] = value;
 				break;
@@ -107,6 +120,7 @@ function getTrafficSourceData() {
 	let returnObject = {};
 
 	if ('' === referrer) {
+		returnObject['utm_campaign'] = '';
 		returnObject['utm_source'] = `${brandName}_web_direct`;
 		returnObject['utm_medium'] = '';
 		returnObject['utm_term'] = '';
@@ -141,8 +155,9 @@ function getSourceAndMediumForOrganicTraffic(referrer) {
 	}
 
 	const returnObject = {
+		'utm_campaign': '',
 		'utm_source': websiteRef ? `${brandName}_website` : `${brandName}_web_organic`,
-		'utm_medium': referrerEngineObject.hasOwnProperty(referrer) ? referrerEngineObject[referrer]: 'website',
+		'utm_medium': websiteRef ? 'website' : (referrerEngineObject.hasOwnProperty(referrer) ? referrerEngineObject[referrer] : 'other'),
 		'utm_term': '', // Need to research for term keyword search.
 	};
 
