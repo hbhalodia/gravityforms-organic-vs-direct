@@ -121,8 +121,8 @@ function getTrafficSourceData() {
 
 	if ('' === referrer) {
 		returnObject['utm_campaign'] = '';
-		returnObject['utm_source'] = `${brandName}_web_direct`;
-		returnObject['utm_medium'] = '';
+		returnObject['utm_source'] = '';
+		returnObject['utm_medium'] = `${brandName}_web_direct`;
 		returnObject['utm_term'] = '';
 	} else {
 		returnObject = getSourceAndMediumForOrganicTraffic(referrer);
@@ -156,8 +156,8 @@ function getSourceAndMediumForOrganicTraffic(referrer) {
 
 	const returnObject = {
 		'utm_campaign': '',
-		'utm_source': websiteRef ? `${brandName}_website` : `${brandName}_web_organic`,
-		'utm_medium': websiteRef ? 'website' : (referrerEngineObject.hasOwnProperty(referrer) ? referrerEngineObject[referrer] : 'other'),
+		'utm_source': websiteRef ? 'website' : (referrerEngineObject.hasOwnProperty(referrer) ? referrerEngineObject[referrer] : 'other'),
+		'utm_medium': websiteRef ? `${brandName}_website` : `${brandName}_web_organic`,
 		'utm_term': '', // Need to research for term keyword search.
 	};
 
