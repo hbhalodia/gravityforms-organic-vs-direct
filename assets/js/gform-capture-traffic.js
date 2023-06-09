@@ -4,13 +4,6 @@
  * @package gravityforms-organic-vs-direct
  */
 
-
-let brandName = '';
-
-if ('undefined' !== typeof gFormCaptureTraffic) {
-	brandName = gFormCaptureTraffic.brandName;
-}
-
 /**
  * Set traffic sources on hidden fileds.
  *

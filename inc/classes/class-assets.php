@@ -53,18 +53,6 @@ class Assets {
 			true
 		);
 
-		if ( class_exists( 'GF_Organic_Vs_Direct_Addon' ) ) {
-			$brand_name = GF_Organic_Vs_Direct_Addon::retrive_form_settings( 'gforms_organic_vs_direct_traffic' );
-		}
-
-		wp_localize_script(
-			'gform-capture-traffic',
-			'gFormCaptureTraffic',
-			array(
-				'brandName' => $brand_name,
-			)
-		);
-
 		wp_enqueue_script( 'gform-capture-traffic' );
 	}
 

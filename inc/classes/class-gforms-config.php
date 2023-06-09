@@ -21,24 +21,8 @@ class GForms_Config {
 	 */
 	public function setup_hooks(): void {
 
-		// Actions.
-		add_action( 'gform_loaded', [ $this, 'register_addon_settings' ] );
-
 		// Filters.
 		add_filter( 'gform_field_css_class', [ $this, 'add_custom_css_clas_hidden_field' ], 10, 2 );
-	}
-
-	/**
-	 * Function to register the Addon and its settings.
-	 *
-	 * @return void
-	 */
-	public function register_addon_settings(): void {
-
-		// Require Addon class.
-		require_once GFORMS_ORGANIC_VS_DIRECT_TRAFFIC_FEATURES_PATH . '/inc/classes/class-gf-organic-vs-direct-addon.php';
-
-		GFAddOn::register( 'GF_Organic_Vs_Direct_Addon' );
 	}
 
 	/**
