@@ -80,7 +80,7 @@ function setHiddenFieldsValue(hiddenFields, trafficValue) {
 function getQueryParamsTrafficSourceData() {
 
 	const returnObject = {};
-	const urlParams = new URLSearchParams(window.location.search);
+	const urlParams = new URLSearchParams(window.location.search); // phpcs:ignore WordPressVIPMinimum.JS.Window.location
 
 	for (const [key, value] of urlParams.entries()) {
 		switch (key) {
@@ -143,7 +143,7 @@ function getSourceAndMediumForOrganicTraffic(referrer) {
 
 	let websiteRef = false;
 
-	if (referrer.includes(window.location.hostname)) {
+	if (referrer.includes(window.location.hostname)) { // phpcs:ignore WordPressVIPMinimum.JS.Window.location
 		websiteRef = true;
 	}
 
