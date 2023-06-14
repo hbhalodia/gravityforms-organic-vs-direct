@@ -13,7 +13,7 @@ function setHiddenFieldTrafficSources() {
 
 	const utmCampaignHiddenField = document.querySelectorAll( '.utm_campaign input' );
 	const utmSourceHiddenField = document.querySelectorAll( '.utm_source input' );
-	const utmMediumHiddenField = document.querySelectorAll('.utm_medium input' );
+	const utmMediumHiddenField = document.querySelectorAll( '.utm_medium input' );
 	const utmTermHiddenField = document.querySelectorAll( '.utm_term input' );
 
 	// Check the Query Params for UTM Parameter and add it on global const object.
