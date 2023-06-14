@@ -7,7 +7,7 @@
  * Author URI:  https://rtcamp.com
  * License:     GPL2
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- * Version:     1.0
+ * Version:     1.0.1
  * Text Domain: gravityforms-organic-vs-direct
  *
  * @package gravityforms-organic-vs-direct
