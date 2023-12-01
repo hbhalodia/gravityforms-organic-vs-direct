@@ -5,7 +5,7 @@ User's want to track website traffic within form submission data itself. How use
 ## How it works :truck:
 - Create the gravity form.
 - Add hidden fields with lable `utm_source`, `utm_medium` and `utm_term` to track. We would be replacing the hidden fields value based on traffic data. So need same labels to target the form input.
-- Inside gravityForms settings we have menu named `GForms Organic vs Direct` which have settings for adding the brand name for your project. This can be used to add source as `brandname_web_direct`.
+- **Update** - We do not have settings to add the brandname. We have removed this settings and it would only populate as `direct`, instead of `brandname_direct`.
 - On adding this settings and adding hidden fields to forms, on page load it would check for already defined utm_params (if present) or check the `document.referrer` function in js to identify this values and substitute the same with hidden fields.
 - On form submit this value would also get submitted and helps user to find the lead from which user come to site and submitted the form.
 - **Note** - Cookie would be stored for 30min. After cookie expiration if user visited the site again, it would check again how user was acquired to the site.
